@@ -4,17 +4,20 @@ import './App.css';
 
 const App: React.FC = () => {
     const [movies, setMovies] = useState([
-        { id: 1, title: 'The Fifth Estate' },
-        { id: 2, title: 'Matrix' },
-        { id: 3, title: 'Interstellar' },
+        { id: 1, title: 'Matrix' },
+        { id: 2, title: 'Spider-Man 2' },
+        { id: 3, title: 'The Fifth Estate' },
     ]);
 
-    const handleAddMovie = (newTitle: string) => {
+    const [newMovieTitle, setNewMovieTitle] = useState(''); // Добавлено новое состояние
+
+    const handleAddMovie = () => {
         const newMovie = {
             id: Math.random(),
-            title: newTitle,
+            title: newMovieTitle,
         };
         setMovies((prevMovies) => [...prevMovies, newMovie]);
+        setNewMovieTitle('');
     };
 
     const handleDeleteMovie = (id: number) => {
@@ -32,8 +35,13 @@ const App: React.FC = () => {
     return (
         <div>
             <div>
-                <input type="text" placeholder="Enter movie title" />
-                <button onClick={() => handleAddMovie('New Movie')}>Add</button>
+                <input
+                    type="text"
+                    placeholder="Enter movie title"
+                    value={newMovieTitle}
+                    onChange={(e) => setNewMovieTitle(e.target.value)}
+                />
+                <button onClick={handleAddMovie}>Add</button>
             </div>
             <div>
                 <h2>To watch list:</h2>

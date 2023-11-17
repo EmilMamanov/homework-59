@@ -7,7 +7,7 @@ interface MovieItemProps {
     onEdit: (id: number, updatedTitle: string) => void;
 }
 
-const MovieItem: React.FC<MovieItemProps> = ({ id, title, onDelete, onEdit }) => {
+const MovieItem: React.FC<MovieItemProps> = React.memo(({ id, title, onDelete, onEdit }) => {
     const [editedTitle, setEditedTitle] = useState(title);
 
     const handleEdit = () => {
@@ -26,10 +26,12 @@ const MovieItem: React.FC<MovieItemProps> = ({ id, title, onDelete, onEdit }) =>
                 style={{ cursor: 'pointer' }}
                 onClick={() => onDelete(id)}
             >
-                X
+                ❌
             </button>
         </div>
     );
-};
+}, (prevProps, nextProps) => {
+    return prevProps.id === nextProps.id && prevProps.title === nextProps.title;
+});
 
 export default MovieItem;

@@ -1,10 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import MovieItem from './components/MovieItem/MovieItem';
 import './App.css';
 import JokeApp from './components/JokeApp/JokeApp';
-import {getJoke} from "./components/JokeApp/jokeApi.ts";
-import JokeDisplay from "./components/JokeApp/JokeDisplay.tsx";
-import LoadJokeButton from "./components/JokeApp/LoadJokeButton.tsx";
 
 const App: React.FC = () => {
     const [movies, setMovies] = useState([
@@ -36,35 +33,13 @@ const App: React.FC = () => {
         );
     };
 
-    const JokeApp: React.FC = () => {
-        const [joke, setJoke] = useState('');
 
-        useEffect(() => {
-            loadJoke();
-        }, []);
-
-        const loadJoke = async () => {
-            try {
-                const jokeData = await getJoke();
-                setJoke(jokeData.value);
-            } catch (error) {
-                console.error('Error loading joke:', error);
-            }
-        };
-
-        return (
-            <div>
-                <h2>Joke App</h2>
-                here will be app and button
-            </div>
-        );
-    };
 
     return (
         <div>
-            <section>
+            <section className="Task-1">
             <div>
-                <input
+                <input className="add-movie-input"
                     type="text"
                     placeholder="Enter movie title"
                     value={newMovieTitle}
@@ -73,7 +48,7 @@ const App: React.FC = () => {
                 <button onClick={handleAddMovie}>Add</button>
             </div>
             <div>
-                <h2>To watch list:</h2>
+                <h2 className="app-title">To watch list App:</h2>
                 {movies.map((movie) => (
                     <MovieItem
                         key={movie.id}
@@ -85,7 +60,10 @@ const App: React.FC = () => {
                 ))}
             </div>
             </section>
-
+            <hr/>
+            <section className="Task-2">
+                <JokeApp />
+            </section>
         </div>
     );
 };

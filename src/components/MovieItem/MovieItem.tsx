@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../App.css';
 
 interface MovieItemProps {
     id: number;
@@ -16,14 +17,17 @@ const MovieItem: React.FC<MovieItemProps> = React.memo(({ id, title, onDelete, o
 
     return (
         <div>
-            <input
+            <input className="input-movie"
                 type="text"
                 value={editedTitle}
                 onChange={(e) => setEditedTitle(e.target.value)}
             />
-            <button onClick={handleEdit}>Save</button>
             <button
-                style={{ cursor: 'pointer' }}
+                onClick={handleEdit}
+                style={{ cursor: 'pointer', background: 'green' }}
+            >Save</button>
+            <button
+                style={{ cursor: 'pointer', background: 'white' }}
                 onClick={() => onDelete(id)}
             >
                 ❌

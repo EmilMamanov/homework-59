@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import MovieItem from './components/MovieItem/MovieItem';
 import './App.css';
+import JokeApp from './components/JokeApp/JokeApp';
+import {getJoke} from "./components/JokeApp/jokeApi.ts";
+import JokeDisplay from "./components/JokeApp/JokeDisplay.tsx";
+import LoadJokeButton from "./components/JokeApp/LoadJokeButton.tsx";
 
 const App: React.FC = () => {
     const [movies, setMovies] = useState([
@@ -32,8 +36,33 @@ const App: React.FC = () => {
         );
     };
 
+    const JokeApp: React.FC = () => {
+        const [joke, setJoke] = useState('');
+
+        useEffect(() => {
+            loadJoke();
+        }, []);
+
+        const loadJoke = async () => {
+            try {
+                const jokeData = await getJoke();
+                setJoke(jokeData.value);
+            } catch (error) {
+                console.error('Error loading joke:', error);
+            }
+        };
+
+        return (
+            <div>
+                <h2>Joke App</h2>
+                here will be app and button
+            </div>
+        );
+    };
+
     return (
         <div>
+            <section>
             <div>
                 <input
                     type="text"
@@ -55,6 +84,8 @@ const App: React.FC = () => {
                     />
                 ))}
             </div>
+            </section>
+
         </div>
     );
 };
